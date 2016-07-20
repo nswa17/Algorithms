@@ -83,12 +83,13 @@ function get_num_connected_graph2(g)
 end
 
 function alter!(g, i, j, m, n)
+    println((i, j))
     if g[i, j] == 1
         g[i, j] = 0
-        i != m && alter!(g, i+1, j, m, n)
-        i != 1 && alter!(g, i-1, j, m, n)
-        j != n && alter!(g, i, j+1, m, n)
-        j != 1 && alter!(g, i, j-1, m, n)
+        i != m && g[i+1, j] == 1 && alter!(g, i+1, j, m, n)
+        i != 1 && g[i-1, j] == 1 && alter!(g, i-1, j, m, n)
+        j != n && g[i, j+1] == 1 && alter!(g, i, j+1, m, n)
+        j != 1 && g[i, j-1] == 1 && alter!(g, i, j-1, m, n)
     end
 end
 
@@ -156,11 +157,19 @@ println(@time get_num_connected_graph2(a))
 println("function1")
 println(@time get_num_connected_graph(a))
 
-b = [1 0 0 0;
-     1 1 1 0;
-     1 0 0 1;
-     0 0 1 0]
+b = [1 1 1 1;
+     1 1 1 1;
+     1 1 1 1;
+     1 1 1 1]
 
+x = rand(0:1, (4, 4))
+
+println("function3")
+println(@time get_num_connected_graph3(x))
+#println("function1")
+#println(@time get_num_connected_graph(x))
 #set_zero_to_around(b, 2, 2, [])
+
+
 
 #println(b)
